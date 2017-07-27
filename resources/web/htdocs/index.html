@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta content="">
+    <style>
+    * {
+        font-family: Arial, sans-serif;
+    }
+    </style>
+  </head>
+  <body>
+  <h1>QGIS Server Demo</h1>
+  <p>Place your HTML content here!</p>
+  <p>or browse one of the default endpoints:</p>
+  <ul>
+      <li><a href="/cgi-bin/qgis_mapserv.cgi?MAP=QGIS_SERVER_DIR/projects/helloworld.qgs&SERVICE=WMS&REQUEST=GetCapabilities">GetCapabilities CGI (Apache2 only)</a></li>
+      <li><a href="/cgi-bin/qgis_mapserv.fcgi?MAP=QGIS_SERVER_DIR/projects/helloworld.qgs&SERVICE=WMS&REQUEST=GetCapabilities">GetCapabilities Fast CGI</a></li>
+      <li><a href="/cgi-bin/qgis_mapserv.cgi?MAP=QGIS_SERVER_DIR/projects/helloworld.qgs&SERVICE=WMS&REQUEST=GetProjectsettings">Browser CGI</a></li>
+      <li><a href="/cgi-bin/qgis_mapserv.fcgi?MAP=QGIS_SERVER_DIR/projects/helloworld.qgs&SERVICE=WMS&REQUEST=GetProjectsettings">Browser Fast CGI</a></li>
+  </ul>
+  </body>
+</html>

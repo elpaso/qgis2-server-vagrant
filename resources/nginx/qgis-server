@@ -1,0 +1,50 @@
+# Default server configuration
+#
+
+# Extract server name and port from HTTP_HOST, this 
+# is needed because we are behind a VMs mapped port
+
+map $http_host $parsed_server_name {
+    default  $host;
+    "~(?P<h>[^:]+):(?P<p>.*+)" $h;
+}
+
+map $http_host $parsed_server_port {
+    default  $host;
+    "~(?P<h>[^:]+):(?P<p>.*+)" $p;
+}
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root QGIS_SERVER_DIR/htdocs;
+
+    location / {
+            # First attempt to serve request as file, then
+            # as directory, then fall back to displaying a 404.
+            try_files $uri $uri/ =404;
+    }
+
+
+
+    location /cgi-bin/ { 
+        # Disable gzip (it makes scripts feel slower since they have to complete
+        # before getting gzipped)
+        gzip off;
+
+        # Fastcgi socket
+        fastcgi_pass  unix:/tmp/qgis-server.sock;
+
+        # $http_host contains the original server name and port, such as: "localhost:8080"
+        # QGIS Server behind a VM needs this parsed values in order to automatically
+        # get the correct values for the online resource URIs
+        fastcgi_param SERVER_NAME       $parsed_server_name;
+        fastcgi_param SERVER_PORT       $parsed_server_port;
+
+        # Fastcgi parameters, include the standard ones
+        include /etc/nginx/fastcgi_params;
+
+    }
+
+}
