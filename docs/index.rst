@@ -2,11 +2,11 @@
 :skip-help: true
 :css: css/custom.css
 
-.. title: QGIS Server Workshop 2017
+.. title:: QGIS Server Workshop 2017
 
 .. header::
 
-   .. image:: images/company-logo.png
+   .. image:: images/qgis-icon.png
 
 
 .. footer::
