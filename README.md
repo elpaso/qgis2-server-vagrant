@@ -1,4 +1,4 @@
-# QGIS 2.x Vagrant testing VMs with Apache and Nginx
+# QGIS Server 2.x Vagrant testing VMs with Apache and Nginx
 
 Yet another QGIS Server demo VM.
 
