@@ -11,7 +11,7 @@
 
 .. footer::
 
-    "Introduction to QGIS Server Workshop 2017
+    Introduction to QGIS Server Workshop 2017
 
 ----
 
