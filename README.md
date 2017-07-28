@@ -11,6 +11,10 @@ It is based on xenial and comes with a sample project and a few plugins.
 | Apache     | 81         | 8081      |
 
 
+## Documentation
+
+A presentation is available in the [docs directory](docs/index.rst)
+
 ## Setup
 
 ```
