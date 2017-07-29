@@ -47,9 +47,13 @@ A presentation is available in the [docs directory](docs/index.rst)
 
 ## Setup
 
+From the directory that contains this README:
+
 ```
-vagrant up
+vagrant up --no-provision
 ```
+
+Follow the steps in the documentation for further setup.
 
 
 

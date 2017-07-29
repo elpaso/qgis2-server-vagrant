@@ -5,13 +5,13 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="">
     <customproperties/>
-    <layer-tree-layer expanded="1" providerKey="WFS" checked="Qt::Unchecked" id="world20170729111159705" source="user='username' restrictToRequestBBOX='1' srsname='EPSG:4326' typename='world' url='http://localhost:8081/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs' version='auto' table=&quot;&quot; sql=" name="world">
+    <layer-tree-layer expanded="1" providerKey="WFS" checked="Qt::Checked" id="world20170729111159705" source="user='username' restrictToRequestBBOX='1' srsname='EPSG:4326' typename='world' url='http://localhost:8081/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs' version='auto' table=&quot;&quot; sql=" name="world">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="1" providerKey="wms" checked="Qt::Checked" id="world20170729110147157" source="contextualWMSLegend=0&amp;crs=EPSG:4326&amp;dpiMode=7&amp;featureCount=10&amp;format=image/jpeg&amp;layers=world&amp;styles=&amp;url=http://localhost:8081/cgi-bin/qgis_mapserv.fcgi?MAP%3D/qgis-server/projects/helloworld.qgs" name="world">
+    <layer-tree-layer expanded="0" providerKey="wms" checked="Qt::Unchecked" id="world20170729110147157" source="contextualWMSLegend=0&amp;crs=EPSG:4326&amp;dpiMode=7&amp;featureCount=10&amp;format=image/jpeg&amp;layers=world&amp;styles=&amp;url=http://localhost:8081/cgi-bin/qgis_mapserv.fcgi?MAP%3D/qgis-server/projects/helloworld.qgs" name="world">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="wms" checked="Qt::Checked" id="bluemarble20170729110757938" source="contextualWMSLegend=0&amp;crs=EPSG:4326&amp;dpiMode=7&amp;featureCount=10&amp;format=image/jpeg&amp;layers=bluemarble&amp;styles=&amp;url=http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP%3D/qgis-server/projects/helloworld.qgs" name="bluemarble">
+    <layer-tree-layer expanded="0" providerKey="wms" checked="Qt::Unchecked" id="bluemarble20170729110757938" source="contextualWMSLegend=0&amp;crs=EPSG:4326&amp;dpiMode=7&amp;featureCount=10&amp;format=image/jpeg&amp;layers=bluemarble&amp;styles=&amp;url=http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP%3D/qgis-server/projects/helloworld.qgs" name="bluemarble">
       <customproperties/>
     </layer-tree-layer>
   </layer-tree-group>
@@ -19,10 +19,10 @@
   <mapcanvas>
     <units>degrees</units>
     <extent>
-      <xmin>-131.04359693563432643</xmin>
-      <ymin>0.86302768656716733</ymin>
-      <xmax>-107.41859693563432643</xmax>
-      <ymax>12.25386737406716975</ymax>
+      <xmin>-169.10573771796194364</xmin>
+      <ymin>-89.26862795567424769</ymin>
+      <xmax>208.89426228203805636</xmax>
+      <ymax>92.98480704432577681</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>0</projections>
@@ -49,19 +49,19 @@
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="world" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="world20170729111159705" visible="0"/>
-      </filegroup>
-    </legendlayer>
     <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="world" showFeatureCount="0">
       <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="world20170729110147157" visible="1"/>
+        <legendlayerfile isInOverview="0" layerid="world20170729111159705" visible="1"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="bluemarble" showFeatureCount="0">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="world" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="bluemarble20170729110757938" visible="1"/>
+        <legendlayerfile isInOverview="0" layerid="world20170729110147157" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="bluemarble" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="bluemarble20170729110757938" visible="0"/>
       </filegroup>
     </legendlayer>
   </legend>
@@ -248,7 +248,7 @@
         <multilineenabled fieldname="" on=""/>
         <selectedonly on=""/>
       </labelattributes>
-      <annotationform></annotationform>
+      <annotationform>.</annotationform>
       <aliases>
         <alias field="NAME" index="0" name=""/>
         <alias field="CAPITAL" index="1" name=""/>
@@ -259,13 +259,13 @@
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
       <attributeactions default="-1"/>
-      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="766165216">
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
         <columns/>
       </attributetableconfig>
-      <editform></editform>
+      <editform>.</editform>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath></editforminitfilepath>
+      <editforminitfilepath>.</editforminitfilepath>
       <editforminitcode><![CDATA[]]></editforminitcode>
       <featformsuppress>0</featformsuppress>
       <editorlayout>generatedlayout</editorlayout>

@@ -27,6 +27,10 @@ in Vagrant is it provided by the *box*:
 
     config.vm.box = "ubuntu/xenial64"
 
+.. code:: bash
+
+    vagrant up --no-provision
+
 ----
 
 SSH into the machine
@@ -38,6 +42,20 @@ SSH into the machine
     sudo su -
 
 **Checkpoint**: you need to be able to log into the machine and become `root`
+
+----
+
+Add resources from workshop repository
+======================================
+
+Only for unprovisioned machines!
+
+.. code:: bash
+
+    wget https://github.com/elpaso/qgis2-server-vagrant/archive/master.zip
+    unzip master.zip 
+    rmdir /vagrant/
+    mv qgis2-server-vagrant-master/ /vagrant
 
 ----
 
@@ -476,6 +494,7 @@ Restart the service
 
 .. code:: bash
 
+    update-rc.d uwsgi remove # Remove stock uwsgi
     systemctl enable /etc/systemd/system/uwsgi-qgis.service
     service uwsgi-qgis start
 

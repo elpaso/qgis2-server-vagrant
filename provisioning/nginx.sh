@@ -18,6 +18,7 @@ sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@" /etc/nginx/sites-enabled/qgis-
 cp /vagrant/resources/uwsgi/uwsgi-qgis.service /etc/systemd/system/uwsgi-qgis.service
 cp /vagrant/resources/uwsgi/qgis-server.ini /etc/uwsgi/apps-enabled/qgis-server.ini
 sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@" /etc/uwsgi/apps-enabled/qgis-server.ini
+update-rc.d uwsgi remove # Remove stock uwsgi control file
 systemctl enable /etc/systemd/system/uwsgi-qgis.service
 service uwsgi-qgis start
 
