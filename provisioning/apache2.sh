@@ -15,6 +15,7 @@ cp /vagrant/resources/apache2/001-qgis-server.conf /etc/apache2/sites-available
 sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" /etc/apache2/sites-available/001-qgis-server.conf
 sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" $QGIS_SERVER_DIR/htdocs/index.html
 a2enmod rewrite
+a2enmod cgid
 a2dissite 000-default 
 a2ensite 001-qgis-server
 

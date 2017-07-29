@@ -128,6 +128,7 @@ Install system software III
 =============================
 
 .. code:: bash
+
     # Setup xvfb
     cp /vagrant/resources/xvfb/xvfb.service \
         /etc/systemd/system/xvfb.service
@@ -258,6 +259,7 @@ Enable sites and restart
 .. code:: bash
 
     a2enmod rewrite # Only required by some plugins
+    a2enmod cgid # Required by plain old CGI
     a2dissite 000-default 
     a2ensite 001-qgis-server
 
@@ -476,3 +478,42 @@ Restart the service
 
     systemctl enable /etc/systemd/system/uwsgi-qgis.service
     service uwsgi-qgis start
+
+----
+
+Final Checkpoints: Apache2
+===========================
+
+Check **WMS** on localhost 8081 in the browser
+
+http://localhost:8081
+
+Follow the links!
+
+
+----
+
+Final Checkpoints: Nginx
+===========================
+
+Check **WMS** on localhost 8080 in the browser
+
+http://localhost:8080
+
+Follow the links!
+
+----
+
+Final Checkpoints: QGIS as a Client
+===================================
+
+Check **WMS** and **WFS** using QGIS as a client.
+
+Check that **WFS** requires a "username" and "password"
+
+Check that **WWS** *GetFeatureInfo* returns a (blueish) formatted HTML
+
+Note: a test project with pre-configured endpoints 
+is available in the same directory that hosts
+this presentation.
+

@@ -26,18 +26,15 @@ Content-Type: text/xml<span class="p">;</span> <span class="nv">charset</span><s
 cp -r /vagrant/resources/web/htdocs <span class="nv">$QGIS_SERVER_DIR</span>
 cp -r /vagrant/resources/web/plugins <span class="nv">$QGIS_SERVER_DIR</span>
 cp -r /vagrant/resources/web/projects <span class="nv">$QGIS_SERVER_DIR</span>
-chown -R www-data.www-data <span class="nv">$QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="7" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="11200" data-y="0" data-z="0"><h1 id="install-system-software-iii">Install system software III</h1><p>Error in "code" directive:
-maximum 1 argument(s) allowed, 14 supplied.</p><pre class="highlight ">.. code:: bash
-    # Setup xvfb
-    cp /vagrant/resources/xvfb/xvfb.service \
-        /etc/systemd/system/xvfb.service
-    systemctl enable /etc/systemd/system/xvfb.service
-    service xvfb start
+chown -R www-data.www-data <span class="nv">$QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="7" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="11200" data-y="0" data-z="0"><h1 id="install-system-software-iii">Install system software III</h1><pre class="highlight code bash"><span class="c1"># Setup xvfb
+</span>cp /vagrant/resources/xvfb/xvfb.service <span class="se">\
+</span>    /etc/systemd/system/xvfb.service
+systemctl <span class="nb">enable</span> /etc/systemd/system/xvfb.service
+service xvfb start
 
-    # Symlink to cgi for apache CGI mode
-    ln -s /usr/lib/cgi-bin/qgis_mapserv.fcgi \
-        /usr/lib/cgi-bin/qgis_mapserv.cgi
-</pre></div><div class="step step-level-1" step="8" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="12800" data-y="0" data-z="0"><h1 id="apache2">Apache2</h1><p>Installation (with FCGI module)</p><pre class="highlight code bash"><span class="c1"># Common configuration
+<span class="c1"># Symlink to cgi for apache CGI mode
+</span>ln -s /usr/lib/cgi-bin/qgis_mapserv.fcgi <span class="se">\
+</span>    /usr/lib/cgi-bin/qgis_mapserv.cgi</pre></div><div class="step step-level-1" step="8" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="12800" data-y="0" data-z="0"><h1 id="apache2">Apache2</h1><p>Installation (with FCGI module)</p><pre class="highlight code bash"><span class="c1"># Common configuration
 </span><span class="nb">export</span> <span class="nv">QGIS_SERVER_DIR</span><span class="o">=</span>/qgis-server
 
 <span class="c1"># Install the required server software
@@ -92,6 +89,7 @@ SetEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-le
     &lt;/Directory&gt;
 
 &lt;/VirtualHost&gt;</pre></div><div class="step step-level-1" step="13" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="20800" data-y="0" data-z="0"><h1 id="apache2-configuration-vi">Apache2 configuration VI</h1><p>Enable sites and restart</p><pre class="highlight code bash">a2enmod rewrite <span class="c1"># Only required by some plugins
+</span>a2enmod cgid <span class="c1"># Required by plain old CGI
 </span>a2dissite 000-default
 a2ensite 001-qgis-server
 
@@ -187,4 +185,6 @@ sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_PLUGINPATH=QGIS_SERVER_DIR/plugins</span>
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_OPTIONS_PATH=QGIS_SERVER_DIR</span>
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_CUSTOM_CONFIG_PATH=QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="25" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="40000" data-y="0" data-z="0"><h1 id="uvsgi-configuration-v">Uvsgi configuration V</h1><p>Restart the service</p><pre class="highlight code bash">systemctl <span class="nb">enable</span> /etc/systemd/system/uwsgi-qgis.service
-service uwsgi-qgis start</pre></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Right, Down, Page Down</th><td>Next slide</td></tr><tr><th>Left, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script></body></html>
+service uwsgi-qgis start</pre></div><div class="step step-level-1" step="26" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="41600" data-y="0" data-z="0"><h1 id="final-checkpoints-apache2">Final Checkpoints: Apache2</h1><p>Check <strong>WMS</strong> on localhost 8081 in the browser</p><p><a href="http://localhost:8081">http://localhost:8081</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="27" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="43200" data-y="0" data-z="0"><h1 id="final-checkpoints-nginx">Final Checkpoints: Nginx</h1><p>Check <strong>WMS</strong> on localhost 8080 in the browser</p><p><a href="http://localhost:8080">http://localhost:8080</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="28" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="44800" data-y="0" data-z="0"><h1 id="final-checkpoints-qgis-as-a-client">Final Checkpoints: QGIS as a Client</h1><p>Check <strong>WMS</strong> and <strong>WFS</strong> using QGIS as a client.</p><p>Check that <strong>WFS</strong> requires a "username" and "password"</p><p>Check that <strong>WWS</strong> <em>GetFeatureInfo</em> returns a (blueish) formatted HTML</p><p>Note: a test project with pre-configured endpoints
+is available in the same directory that hosts
+this presentation.</p></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Right, Down, Page Down</th><td>Next slide</td></tr><tr><th>Left, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script></body></html>
