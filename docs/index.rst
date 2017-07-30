@@ -30,6 +30,7 @@ in Vagrant is it provided by the *box*:
 .. code:: bash
 
     vagrant up --no-provision
+    # or just "vagrant up" if you want to provision
 
 ----
 
@@ -186,6 +187,8 @@ Configure the web server
     cp /vagrant/resources/apache2/001-qgis-server.conf \
         /etc/apache2/sites-available
     sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" \
+        /etc/apache2/sites-available/001-qgis-server.conf
+    sed -i -e 's/VirtualHost \*:80/VirtualHost \*:81/' \
         /etc/apache2/sites-available/001-qgis-server.conf
     sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" \
         $QGIS_SERVER_DIR/htdocs/index.html

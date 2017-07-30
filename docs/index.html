@@ -1,32 +1,36 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>QGIS Server Workshop 2017</title><meta name="generator" content="Hovercraft! 1.0 http://regebro.github.com/hovercraft"></meta><link rel="stylesheet" href="css/hovercraft.css" media="all"></link><link rel="stylesheet" href="css/impressConsole.css" media="all"></link><link rel="stylesheet" href="css/highlight.css" media="all"></link><link rel="stylesheet" href="css/custom.css" media="screen,projection"></link></head><body class="impress-not-supported"><div id="impress" data-transition-duration="2000"><div class="step step-level-1" step="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="0" data-y="0" data-z="0"><h1 id="os-setup">OS Setup</h1><p>We are using Ubuntu Xenial 64bit</p><p>in Vagrant is it provided by the <em>box</em>:</p><pre class="highlight code python"><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">"ubuntu/xenial64"</span></pre></div><div class="step step-level-1" step="1" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1600" data-y="0" data-z="0"><h1 id="ssh-into-the-machine">SSH into the machine</h1><pre class="highlight code bash">vagrant ssh
-sudo su -</pre><p><strong>Checkpoint</strong>: you need to be able to log into the machine and become root</p></div><div class="step step-level-1" step="2" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="3200" data-y="0" data-z="0"><h1 id="add-required-repositories">Add required repositories</h1><pre class="highlight code bash"><span class="c1"># Add repositories
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>QGIS Server Workshop 2017</title><meta name="generator" content="Hovercraft! 1.0 http://regebro.github.com/hovercraft"></meta><link rel="stylesheet" href="css/hovercraft.css" media="all"></link><link rel="stylesheet" href="css/impressConsole.css" media="all"></link><link rel="stylesheet" href="css/highlight.css" media="all"></link><link rel="stylesheet" href="css/custom.css" media="screen,projection"></link></head><body class="impress-not-supported"><div id="impress" data-transition-duration="2000"><div class="step step-level-1" step="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="0" data-y="0" data-z="0"><h1 id="os-setup">OS Setup</h1><p>We are using Ubuntu Xenial 64bit</p><p>in Vagrant is it provided by the <em>box</em>:</p><pre class="highlight code python"><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">"ubuntu/xenial64"</span></pre><pre class="highlight code bash">vagrant up --no-provision
+<span class="c1"># or just "vagrant up" if you want to provision</span></pre></div><div class="step step-level-1" step="1" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1600" data-y="0" data-z="0"><h1 id="ssh-into-the-machine">SSH into the machine</h1><pre class="highlight code bash">vagrant ssh
+sudo su -</pre><p><strong>Checkpoint</strong>: you need to be able to log into the machine and become root</p></div><div class="step step-level-1" step="2" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="3200" data-y="0" data-z="0"><h1 id="add-resources-from-workshop-repository">Add resources from workshop repository</h1><p>Only for unprovisioned machines!</p><pre class="highlight code bash">wget https://github.com/elpaso/qgis2-server-vagrant/archive/master.zip
+unzip master.zip
+rmdir /vagrant/
+mv qgis2-server-vagrant-master/ /vagrant</pre></div><div class="step step-level-1" step="3" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="4800" data-y="0" data-z="0"><h1 id="add-required-repositories">Add required repositories</h1><pre class="highlight code bash"><span class="c1"># Add repositories
 </span>apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
 <span class="nb">echo</span> <span class="s1">'deb http://qgis.org/debian xenial main'</span> &gt; <span class="se">\
 </span>    /etc/apt/sources.list.d/debian-gis.list
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 <span class="se">\
 </span>    --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-apt-get update</pre></div><div class="step step-level-1" step="3" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="4800" data-y="0" data-z="0"><h1 id="id1">Add required repositories</h1><p><strong>Checkpoint</strong>: the available version of qgis-server must be &gt;= 2.18.11 from qgis.org</p><pre class="highlight code bash">root@ubuntu-xenial:~# apt-cache policy qgis-server
+apt-get update</pre></div><div class="step step-level-1" step="4" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="6400" data-y="0" data-z="0"><h1 id="id1">Add required repositories</h1><p><strong>Checkpoint</strong>: the available version of qgis-server must be &gt;= 2.18.11 from qgis.org</p><pre class="highlight code bash">root@ubuntu-xenial:~# apt-cache policy qgis-server
 qgis-server:
 Candidate: 1:2.18.11+24xenial
 Version table:
 *** 1:2.18.11+24xenial 500
-        <span class="m">500</span> http://qgis.org/debian xenial/main amd64 Packages</pre></div><div class="step step-level-1" step="4" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="6400" data-y="0" data-z="0"><h1 id="install-system-software">Install system software</h1><p>Install the software</p><pre class="highlight code bash"><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+        <span class="m">500</span> http://qgis.org/debian xenial/main amd64 Packages</pre></div><div class="step step-level-1" step="5" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="8000" data-y="0" data-z="0"><h1 id="install-system-software">Install system software</h1><p>Install the software</p><pre class="highlight code bash"><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
 apt-get -y install qgis-server python-qgis xvfb
 
 <span class="c1"># Install utilities (optional)
-</span>apt-get -y install vim unzip</pre></div><div class="step step-level-1" step="5" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="8000" data-y="0" data-z="0"><h1 id="install-system-software-i">Install system software I</h1><p><strong>Checkpoint</strong>: qgis installed with no errors, you can check it with</p><pre class="highlight code bash">root@ubuntu-xenial:~# /usr/lib/cgi-bin/qgis_mapserv.fcgi
+</span>apt-get -y install vim unzip</pre></div><div class="step step-level-1" step="6" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="9600" data-y="0" data-z="0"><h1 id="install-system-software-i">Install system software I</h1><p><strong>Checkpoint</strong>: qgis installed with no errors, you can check it with</p><pre class="highlight code bash">root@ubuntu-xenial:~# /usr/lib/cgi-bin/qgis_mapserv.fcgi
 Content-Length: 206
 Content-Type: text/xml<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
 
 &lt;ServiceExceptionReport <span class="nv">version</span><span class="o">=</span><span class="s2">"1.3.0"</span> <span class="nv">xmlns</span><span class="o">=</span><span class="s2">"http://www.opengis.net/ogc"</span>&gt;
 &lt;ServiceException <span class="nv">code</span><span class="o">=</span><span class="s2">"Service configuration error"</span>&gt;
         Service unknown or unsupported&lt;/ServiceException&gt;
-&lt;/ServiceExceptionReport&gt;</pre></div><div class="step step-level-1" step="6" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="9600" data-y="0" data-z="0"><h1 id="install-system-software-ii">Install system software II</h1><pre class="highlight code bash"><span class="c1"># Install sample projects and plugins
+&lt;/ServiceExceptionReport&gt;</pre></div><div class="step step-level-1" step="7" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="11200" data-y="0" data-z="0"><h1 id="install-system-software-ii">Install system software II</h1><pre class="highlight code bash"><span class="c1"># Install sample projects and plugins
 </span>mkdir -p <span class="nv">$QGIS_SERVER_DIR</span>/logs
 cp -r /vagrant/resources/web/htdocs <span class="nv">$QGIS_SERVER_DIR</span>
 cp -r /vagrant/resources/web/plugins <span class="nv">$QGIS_SERVER_DIR</span>
 cp -r /vagrant/resources/web/projects <span class="nv">$QGIS_SERVER_DIR</span>
-chown -R www-data.www-data <span class="nv">$QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="7" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="11200" data-y="0" data-z="0"><h1 id="install-system-software-iii">Install system software III</h1><pre class="highlight code bash"><span class="c1"># Setup xvfb
+chown -R www-data.www-data <span class="nv">$QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="8" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="12800" data-y="0" data-z="0"><h1 id="install-system-software-iii">Install system software III</h1><pre class="highlight code bash"><span class="c1"># Setup xvfb
 </span>cp /vagrant/resources/xvfb/xvfb.service <span class="se">\
 </span>    /etc/systemd/system/xvfb.service
 systemctl <span class="nb">enable</span> /etc/systemd/system/xvfb.service
@@ -34,17 +38,19 @@ service xvfb start
 
 <span class="c1"># Symlink to cgi for apache CGI mode
 </span>ln -s /usr/lib/cgi-bin/qgis_mapserv.fcgi <span class="se">\
-</span>    /usr/lib/cgi-bin/qgis_mapserv.cgi</pre></div><div class="step step-level-1" step="8" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="12800" data-y="0" data-z="0"><h1 id="apache2">Apache2</h1><p>Installation (with FCGI module)</p><pre class="highlight code bash"><span class="c1"># Common configuration
+</span>    /usr/lib/cgi-bin/qgis_mapserv.cgi</pre></div><div class="step step-level-1" step="9" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="14400" data-y="0" data-z="0"><h1 id="apache2">Apache2</h1><p>Installation (with FCGI module)</p><pre class="highlight code bash"><span class="c1"># Common configuration
 </span><span class="nb">export</span> <span class="nv">QGIS_SERVER_DIR</span><span class="o">=</span>/qgis-server
 
 <span class="c1"># Install the required server software
 </span><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
-apt-get -y install apache2 libapache2-mod-fcgid</pre></div><div class="step step-level-1" step="9" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="14400" data-y="0" data-z="0"><h1 id="apache2-configuration-i">Apache2 configuration I</h1><p>Configure the web server</p><pre class="highlight code bash">cp /vagrant/resources/apache2/001-qgis-server.conf <span class="se">\
+apt-get -y install apache2 libapache2-mod-fcgid</pre></div><div class="step step-level-1" step="10" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="16000" data-y="0" data-z="0"><h1 id="apache2-configuration-i">Apache2 configuration I</h1><p>Configure the web server</p><pre class="highlight code bash">cp /vagrant/resources/apache2/001-qgis-server.conf <span class="se">\
 </span>    /etc/apache2/sites-available
 sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><span class="nv">QGIS_SERVER_DIR</span><span class="si">}</span><span class="s2">@g"</span> <span class="se">\
 </span>    /etc/apache2/sites-available/001-qgis-server.conf
+sed -i -e <span class="s1">'s/VirtualHost \*:80/VirtualHost \*:81/'</span> <span class="se">\
+</span>    /etc/apache2/sites-available/001-qgis-server.conf
 sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><span class="nv">QGIS_SERVER_DIR</span><span class="si">}</span><span class="s2">@g"</span> <span class="se">\
-</span>    <span class="nv">$QGIS_SERVER_DIR</span>/htdocs/index.html</pre></div><div class="step step-level-1" step="10" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="16000" data-y="0" data-z="0"><h1 id="apache2-configuration-ii">Apache2 configuration II</h1><p>VirtualHost configuration for both <strong>FastCGI</strong> and <strong>CGI</strong></p><pre class="highlight code bash">&lt;VirtualHost *:81&gt;
+</span>    <span class="nv">$QGIS_SERVER_DIR</span>/htdocs/index.html</pre></div><div class="step step-level-1" step="11" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="17600" data-y="0" data-z="0"><h1 id="apache2-configuration-ii">Apache2 configuration II</h1><p>VirtualHost configuration for both <strong>FastCGI</strong> and <strong>CGI</strong></p><pre class="highlight code bash">&lt;VirtualHost *:81&gt;
 
     <span class="c1"># [ ... ] Standard config goes here
 </span>
@@ -60,7 +66,7 @@ sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><
     FcgidInitialEnv QGIS_AUTH_DB_DIR_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
     FcgidInitialEnv QGIS_OPTIONS_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
     FcgidInitialEnv QGIS_CUSTOM_CONFIG_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
-    FcgidInitialEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-level-1" step="11" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="17600" data-y="0" data-z="0"><h1 id="apache2-configuration-iv">Apache2 configuration IV</h1><p><strong>CGI</strong></p><pre class="highlight code bash"><span class="c1"># For simple CGI: ignored by fcgid
+    FcgidInitialEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-level-1" step="12" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="19200" data-y="0" data-z="0"><h1 id="apache2-configuration-iv">Apache2 configuration IV</h1><p><strong>CGI</strong></p><pre class="highlight code bash"><span class="c1"># For simple CGI: ignored by fcgid
 </span>SetEnv LC_ALL <span class="s2">"en_US.UTF-8"</span>
 SetEnv LANG <span class="s2">"en_US.UTF-8"</span>
 SetEnv PYTHONIOENCODING UTF-8
@@ -71,7 +77,7 @@ SetEnv QGIS_PLUGINPATH <span class="s2">"QGIS_SERVER_DIR/plugins"</span>
 SetEnv QGIS_AUTH_DB_DIR_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
 SetEnv QGIS_OPTIONS_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
 SetEnv QGIS_CUSTOM_CONFIG_PATH <span class="s2">"QGIS_SERVER_DIR"</span>
-SetEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-level-1" step="12" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="19200" data-y="0" data-z="0"><h1 id="apache2-configuration-v">Apache2 configuration V</h1><pre class="highlight code bash">    <span class="c1"># Needed for QGIS HelloServer plugin HTTP BASIC auth
+SetEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-level-1" step="13" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="20800" data-y="0" data-z="0"><h1 id="apache2-configuration-v">Apache2 configuration V</h1><pre class="highlight code bash">    <span class="c1"># Needed for QGIS HelloServer plugin HTTP BASIC auth
 </span>    &lt;IfModule mod_fcgid.c&gt;
         RewriteEngine on
         RewriteCond %<span class="o">{</span>HTTP:Authorization<span class="o">}</span> .
@@ -88,7 +94,7 @@ SetEnv DISPLAY <span class="s2">":99"</span></pre></div><div class="step step-le
         Require all granted
     &lt;/Directory&gt;
 
-&lt;/VirtualHost&gt;</pre></div><div class="step step-level-1" step="13" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="20800" data-y="0" data-z="0"><h1 id="apache2-configuration-vi">Apache2 configuration VI</h1><p>Enable sites and restart</p><pre class="highlight code bash">a2enmod rewrite <span class="c1"># Only required by some plugins
+&lt;/VirtualHost&gt;</pre></div><div class="step step-level-1" step="14" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="22400" data-y="0" data-z="0"><h1 id="apache2-configuration-vi">Apache2 configuration VI</h1><p>Enable sites and restart</p><pre class="highlight code bash">a2enmod rewrite <span class="c1"># Only required by some plugins
 </span>a2enmod cgid <span class="c1"># Required by plain old CGI
 </span>a2dissite 000-default
 a2ensite 001-qgis-server
@@ -96,13 +102,13 @@ a2ensite 001-qgis-server
 <span class="c1"># Listen on port 81 instead of 80 (nginx)
 </span>sed -i -e <span class="s1">'s/Listen 80/Listen 81/'</span> /etc/apache2/ports.conf
 
-service apache2 restart <span class="c1"># Restart the server</span></pre><p><strong>Checkpoint</strong>: check wether Apache is listening on localhost port 8081 <a href="http://localhost:8081">http://localhost:8081</a></p></div><div class="step step-level-1" step="14" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="22400" data-y="0" data-z="0"><h1 id="nginx-installation">Nginx Installation</h1><pre class="highlight code bash"><span class="c1"># Install the software
+service apache2 restart <span class="c1"># Restart the server</span></pre><p><strong>Checkpoint</strong>: check wether Apache is listening on localhost port 8081 <a href="http://localhost:8081">http://localhost:8081</a></p></div><div class="step step-level-1" step="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="24000" data-y="0" data-z="0"><h1 id="nginx-installation">Nginx Installation</h1><pre class="highlight code bash"><span class="c1"># Install the software
 </span><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
-apt-get -y install nginx uwsgi</pre></div><div class="step step-level-1" step="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="24000" data-y="0" data-z="0"><h1 id="nginx-configuration-i">Nginx configuration I</h1><pre class="highlight code bash">rm /etc/nginx/sites-enabled/default
+apt-get -y install nginx uwsgi</pre></div><div class="step step-level-1" step="16" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="25600" data-y="0" data-z="0"><h1 id="nginx-configuration-i">Nginx configuration I</h1><pre class="highlight code bash">rm /etc/nginx/sites-enabled/default
 cp /vagrant/resources/nginx/qgis-server <span class="se">\
 </span>    /etc/nginx/sites-enabled
 sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><span class="nv">QGIS_SERVER_DIR</span><span class="si">}</span><span class="s2">@"</span> <span class="se">\
-</span>    /etc/nginx/sites-enabled/qgis-server</pre></div><div class="step step-level-1" step="16" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="25600" data-y="0" data-z="0"><h1 id="nginx-configuration-ii">Nginx configuration II</h1><pre class="highlight code php"><span class="x"># Extract server name and port from HTTP_HOST, this
+</span>    /etc/nginx/sites-enabled/qgis-server</pre></div><div class="step step-level-1" step="17" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="27200" data-y="0" data-z="0"><h1 id="nginx-configuration-ii">Nginx configuration II</h1><pre class="highlight code php"><span class="x"># Extract server name and port from HTTP_HOST, this
 # is needed because we are behind a VMs mapped port
 
 map $http_host $parsed_server_name {
@@ -113,7 +119,7 @@ map $http_host $parsed_server_name {
 map $http_host $parsed_server_port {
     default  $host;
     "~(?P&lt;h&gt;[^:]+):(?P&lt;p&gt;.*+)" $p;
-}</span></pre></div><div class="step step-level-1" step="17" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="27200" data-y="0" data-z="0"><h1 id="nginx-configuration-iii">Nginx configuration III</h1><pre class="highlight code php"><span class="x">server {
+}</span></pre></div><div class="step step-level-1" step="18" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="28800" data-y="0" data-z="0"><h1 id="nginx-configuration-iii">Nginx configuration III</h1><pre class="highlight code php"><span class="x">server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
@@ -123,7 +129,7 @@ map $http_host $parsed_server_port {
             # First attempt to serve request as file, then
             # as directory, then fall back to displaying a 404.
             try_files $uri $uri/ =404;
-    }</span></pre></div><div class="step step-level-1" step="18" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="28800" data-y="0" data-z="0"><h1 id="nginx-configuration-iv">Nginx configuration IV</h1><pre class="highlight code php"><span class="x">    location /cgi-bin/ {
+    }</span></pre></div><div class="step step-level-1" step="19" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="30400" data-y="0" data-z="0"><h1 id="nginx-configuration-iv">Nginx configuration IV</h1><pre class="highlight code php"><span class="x">    location /cgi-bin/ {
         # Disable gzip (it makes scripts feel slower since they
         # have to complete before getting gzipped)
         gzip off;
@@ -143,14 +149,14 @@ map $http_host $parsed_server_port {
         include /etc/nginx/fastcgi_params;
 
     }
-}</span></pre></div><div class="step step-level-1" step="19" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="30400" data-y="0" data-z="0"><h1 id="nginx-configuration-v">Nginx configuration V</h1><pre class="highlight code bash"><span class="c1"># Restart the server
-</span>/etc/init.d/nginx restart</pre><p><strong>Checkpoint</strong>: check wether Nginx is listening on localhost port 8080 <a href="http://localhost:8080">http://localhost:8080</a></p></div><div class="step step-level-1" step="20" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="32000" data-y="0" data-z="0"><h1 id="uvsgi-configuration-i">Uvsgi configuration I</h1><pre class="highlight code bash"><span class="c1"># Configure uwsgi
+}</span></pre></div><div class="step step-level-1" step="20" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="32000" data-y="0" data-z="0"><h1 id="nginx-configuration-v">Nginx configuration V</h1><pre class="highlight code bash"><span class="c1"># Restart the server
+</span>/etc/init.d/nginx restart</pre><p><strong>Checkpoint</strong>: check wether Nginx is listening on localhost port 8080 <a href="http://localhost:8080">http://localhost:8080</a></p></div><div class="step step-level-1" step="21" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="33600" data-y="0" data-z="0"><h1 id="uvsgi-configuration-i">Uvsgi configuration I</h1><pre class="highlight code bash"><span class="c1"># Configure uwsgi
 </span>cp /vagrant/resources/uwsgi/uwsgi-qgis.service <span class="se">\
 </span>    /etc/systemd/system/uwsgi-qgis.service
 cp /vagrant/resources/uwsgi/qgis-server.ini <span class="se">\
 </span>    /etc/uwsgi/apps-enabled/qgis-server.ini
 sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><span class="nv">QGIS_SERVER_DIR</span><span class="si">}</span><span class="s2">@"</span> <span class="se">\
-</span>    /etc/uwsgi/apps-enabled/qgis-server.ini</pre></div><div class="step step-level-1" step="21" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="33600" data-y="0" data-z="0"><h1 id="uvsgi-configuration-ii">Uvsgi configuration II</h1><p>Service systemd configuration</p><pre class="highlight code ini"><span class="k">[Unit]</span>
+</span>    /etc/uwsgi/apps-enabled/qgis-server.ini</pre></div><div class="step step-level-1" step="22" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="35200" data-y="0" data-z="0"><h1 id="uvsgi-configuration-ii">Uvsgi configuration II</h1><p>Service systemd configuration</p><pre class="highlight code ini"><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">Starts QGIS Server as FastCGI uwsgi app</span>
 <span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
 
@@ -158,14 +164,14 @@ sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><
 <span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/uwsgi --ini \
     /etc/uwsgi/apps-enabled/qgis-server.ini</span>
 <span class="na">User</span><span class="o">=</span><span class="s">www-data</span>
-<span class="na">Group</span><span class="o">=</span><span class="s">www-data</span></pre></div><div class="step step-level-1" step="22" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="35200" data-y="0" data-z="0"><h1 id="id2">Uvsgi configuration II</h1><pre class="highlight code ini"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">www-data</span></pre></div><div class="step step-level-1" step="23" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="36800" data-y="0" data-z="0"><h1 id="id2">Uvsgi configuration II</h1><pre class="highlight code ini"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
 <span class="na">KillSignal</span><span class="o">=</span><span class="s">SIGQUIT</span>
 <span class="na">Type</span><span class="o">=</span><span class="s">notify</span>
 <span class="na">StandardError</span><span class="o">=</span><span class="s">syslog</span>
 <span class="na">NotifyAccess</span><span class="o">=</span><span class="s">all</span>
 
 <span class="k">[Install]</span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span></pre></div><div class="step step-level-1" step="23" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="36800" data-y="0" data-z="0"><h1 id="uvsgi-configuration-iii">Uvsgi configuration III</h1><p>App configuration</p><pre class="highlight code ini"><span class="k">[uwsgi]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span></pre></div><div class="step step-level-1" step="24" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="38400" data-y="0" data-z="0"><h1 id="uvsgi-configuration-iii">Uvsgi configuration III</h1><p>App configuration</p><pre class="highlight code ini"><span class="k">[uwsgi]</span>
 <span class="na">fastcgi-socket</span> <span class="o">=</span> <span class="s">/tmp/qgis-server.sock</span>
 <span class="na">protocol</span> <span class="o">=</span> <span class="s">fastcgi</span>
 <span class="na">worker-exec</span> <span class="o">=</span> <span class="s">/usr/lib/cgi-bin/qgis_mapserv.fcgi</span>
@@ -174,7 +180,7 @@ sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><
 <span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
 <span class="na">chdir</span> <span class="o">=</span> <span class="s">/usr/lib/cgi-bin/</span>
 <span class="na">chmod-socket</span> <span class="o">=</span> <span class="s">777</span>
-<span class="na">vacuum</span> <span class="o">=</span> <span class="s">true</span></pre></div><div class="step step-level-1" step="24" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="38400" data-y="0" data-z="0"><h1 id="uvsgi-configuration-iv">Uvsgi configuration IV</h1><pre class="highlight code ini"><span class="na">uid</span> <span class="o">=</span> <span class="s">www-data</span>
+<span class="na">vacuum</span> <span class="o">=</span> <span class="s">true</span></pre></div><div class="step step-level-1" step="25" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="40000" data-y="0" data-z="0"><h1 id="uvsgi-configuration-iv">Uvsgi configuration IV</h1><pre class="highlight code ini"><span class="na">uid</span> <span class="o">=</span> <span class="s">www-data</span>
 <span class="na">gid</span> <span class="o">=</span> <span class="s">www-data</span>
 
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_AUTH_DB_DIR_PATH=QGIS_SERVER_DIR/projects</span>
@@ -184,7 +190,8 @@ sed -i -e <span class="s2">"s@QGIS_SERVER_DIR@</span><span class="si">${</span><
 <span class="na">env</span> <span class="o">=</span> <span class="s">DISPLAY=:99</span>
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_PLUGINPATH=QGIS_SERVER_DIR/plugins</span>
 <span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_OPTIONS_PATH=QGIS_SERVER_DIR</span>
-<span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_CUSTOM_CONFIG_PATH=QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="25" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="40000" data-y="0" data-z="0"><h1 id="uvsgi-configuration-v">Uvsgi configuration V</h1><p>Restart the service</p><pre class="highlight code bash">systemctl <span class="nb">enable</span> /etc/systemd/system/uwsgi-qgis.service
-service uwsgi-qgis start</pre></div><div class="step step-level-1" step="26" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="41600" data-y="0" data-z="0"><h1 id="final-checkpoints-apache2">Final Checkpoints: Apache2</h1><p>Check <strong>WMS</strong> on localhost 8081 in the browser</p><p><a href="http://localhost:8081">http://localhost:8081</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="27" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="43200" data-y="0" data-z="0"><h1 id="final-checkpoints-nginx">Final Checkpoints: Nginx</h1><p>Check <strong>WMS</strong> on localhost 8080 in the browser</p><p><a href="http://localhost:8080">http://localhost:8080</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="28" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="44800" data-y="0" data-z="0"><h1 id="final-checkpoints-qgis-as-a-client">Final Checkpoints: QGIS as a Client</h1><p>Check <strong>WMS</strong> and <strong>WFS</strong> using QGIS as a client.</p><p>Check that <strong>WFS</strong> requires a "username" and "password"</p><p>Check that <strong>WWS</strong> <em>GetFeatureInfo</em> returns a (blueish) formatted HTML</p><p>Note: a test project with pre-configured endpoints
+<span class="na">env</span> <span class="o">=</span> <span class="s">QGIS_CUSTOM_CONFIG_PATH=QGIS_SERVER_DIR</span></pre></div><div class="step step-level-1" step="26" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="41600" data-y="0" data-z="0"><h1 id="uvsgi-configuration-v">Uvsgi configuration V</h1><p>Restart the service</p><pre class="highlight code bash">update-rc.d uwsgi remove <span class="c1"># Remove stock uwsgi
+</span>systemctl <span class="nb">enable</span> /etc/systemd/system/uwsgi-qgis.service
+service uwsgi-qgis start</pre></div><div class="step step-level-1" step="27" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="43200" data-y="0" data-z="0"><h1 id="final-checkpoints-apache2">Final Checkpoints: Apache2</h1><p>Check <strong>WMS</strong> on localhost 8081 in the browser</p><p><a href="http://localhost:8081">http://localhost:8081</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="28" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="44800" data-y="0" data-z="0"><h1 id="final-checkpoints-nginx">Final Checkpoints: Nginx</h1><p>Check <strong>WMS</strong> on localhost 8080 in the browser</p><p><a href="http://localhost:8080">http://localhost:8080</a></p><p>Follow the links!</p></div><div class="step step-level-1" step="29" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="46400" data-y="0" data-z="0"><h1 id="final-checkpoints-qgis-as-a-client">Final Checkpoints: QGIS as a Client</h1><p>Check <strong>WMS</strong> and <strong>WFS</strong> using QGIS as a client.</p><p>Check that <strong>WFS</strong> requires a "username" and "password"</p><p>Check that <strong>WWS</strong> <em>GetFeatureInfo</em> returns a (blueish) formatted HTML</p><p>Note: a test project with pre-configured endpoints
 is available in the same directory that hosts
 this presentation.</p></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Right, Down, Page Down</th><td>Next slide</td></tr><tr><th>Left, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script></body></html>

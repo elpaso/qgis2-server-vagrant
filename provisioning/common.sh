@@ -33,4 +33,4 @@ systemctl enable /etc/systemd/system/xvfb.service
 service xvfb start
 
 # Symlink to cgi for apache CGI mode
-ln -s /usr/lib/cgi-bin/qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv.cgi
+[ -f /usr/lib/cgi-bin/qgis_mapserv.cgi ] || ln -s /usr/lib/cgi-bin/qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv.cgi
