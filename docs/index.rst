@@ -20,6 +20,8 @@ OS Setup
 
 We are using Ubuntu Xenial 64bit
 
+https://github.com/elpaso/qgis2-server-vagrant
+
 in Vagrant is it provided by the *box*:
 
 
