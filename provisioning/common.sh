@@ -7,10 +7,9 @@
 
 echo "Changing QGIS_SERVER_DIR to ${QGIS_SERVER_DIR} ..."
 
-# Add repositories
+# Add QGIS repositories
 apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
 echo 'deb http://qgis.org/debian xenial main' > /etc/apt/sources.list.d/debian-gis.list
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 apt-get update
 
 # Install the software

@@ -65,12 +65,10 @@ Add required repositories
 
 .. code:: bash
 
-    # Add repositories
+    # Add QGIS repositories
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
     echo 'deb http://qgis.org/debian xenial main' > \
         /etc/apt/sources.list.d/debian-gis.list
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 \
-        --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
     apt-get update
 
 ----
@@ -468,6 +466,7 @@ App configuration
     chdir = /usr/lib/cgi-bin/
     chmod-socket = 777
     vacuum = true
+    logto = QGIS_SERVER_DIR/logs/qgis-nginx-000.log
 
 ----
 
@@ -503,7 +502,7 @@ Restart the service
 
 ----
 
-Final Checkpoints: Apache2
+Checkpoint: Apache2
 ===========================
 
 Check **WMS** on localhost 8081 in the browser
@@ -515,7 +514,7 @@ Follow the links!
 
 ----
 
-Final Checkpoints: Nginx
+Checkpoint: Nginx
 ===========================
 
 Check **WMS** on localhost 8080 in the browser
@@ -526,7 +525,7 @@ Follow the links!
 
 ----
 
-Final Checkpoints: QGIS as a Client
+Checkpoint: QGIS as a Client
 ===================================
 
 Check **WMS** and **WFS** using QGIS as a client.
@@ -539,3 +538,111 @@ Note: a test project with pre-configured endpoints
 is available in the same directory that hosts
 this presentation.
 
+----
+
+Checkpoint: WMS search
+=================================
+
+Searching features with **WMS**
+
+http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs&SERVICE=WMS&REQUEST=GetFeatureInfo&LAYERS=world&QUERY_LAYERS=world&FILTER=world%3A%22NAME%22%20%3D%20%27SPAIN%27
+
+The filter is a QGIS Expression:
+
+**FILTER=world:"NAME" = 'SPAIN'**
+
+* Field name is enclosed in double quotes, literal string in single quotes
+* You need one space between the operator and tokens
+* Temporary fix: you need BBOX (fixed in master)
+
+
+----
+
+Checkpoint: highlighting
+=================================
+
+The **SELECTION** parameter can highlight features from one or more layers:
+Vector features can be selected by passing comma separated lists with feature ids in *GetMap* and *GetPrint*.
+Example: *SELECTION=mylayer1:3,6,9;mylayer2:1,5,6*
+
+http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs&SERVICE=WMS&VERSION=1.3.0&SELECTION=world%3A44&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=world&CRS=EPSG%3A4326&STYLES=&DPI=180&WIDTH=1794&HEIGHT=1194&BBOX=31.79443359375%2C-18.21533203125%2C58.02978515625%2C21.20361328125
+
+
+----
+
+Checkpoint: printing
+==============================
+
+From composer templates (with substitutions!)
+
+.. code:: xml
+
+  <ComposerTemplates>
+   <ComposerTemplate width="297" height="210" name="Printable World">
+    <ComposerMap width="283.208" height="176" name="map0"/>
+   </ComposerTemplate>
+  </ComposerTemplates>
+
+FORMAT can be any of PDF, JPG, PNG
+See also: DXF Export
+
+----
+
+Checkpoint: printing URL
+==============================
+
+http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetPrint&TEMPLATE=Printable%20World&CRS=EPSG%3A4326&map0:EXTENT=4,52,14,58&FORMAT=jpg&LAYERS=bluemarble,world
+
+----
+
+Checkpoint: printing substitutions
+===================================
+
+- Assign an *ID* to the label
+- add *label_name=Your custom text*
+- as an ID, choose a word that is not reserved in **WMS**
+
+http://localhost:8080/cgi-bin/qgis_mapserv.fcgi?MAP=/qgis-server/projects/helloworld.qgs&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetPrint&TEMPLATE=Printable%20World&CRS=EPSG%3A4326&map0:EXTENT=4,52,14,58&FORMAT=jpg&LAYERS=bluemarble,world&print_title=My%20Custom%20Title!
+
+----
+
+QGIS Server 2.x and python
+============================
+
+Since QGIS 2.8
+
+.. code:: python
+
+    from qgis.server import QgsServer   
+    s = QgsServer()
+    header, body = s.handleRequest(
+        'MAP=/qgis-server/projects/helloworld.qgs' + 
+        '&SERVICE=WMS&REQUEST=GetCapabilities')
+    print(header, body)
+
+Full script:
+https://github.com/qgis/QGIS/blob/release-2_18/tests/src/python/qgis_wrapped_server.py
+
+----
+
+QGIS Server 3.x and python
+============================
+
+Since QGIS 2.99
+
+.. code:: python
+
+    from qgis.core import QgsApplication
+    from qgis.server import *
+    qgs_app = QgsApplication([], False)
+    qgs_server = QgsServer()
+    request = QgsBufferServerRequest(
+        'MAP=/qgis-server/projects/helloworld.qgs' + 
+        '&SERVICE=WMS&REQUEST=GetCapabilities')
+    response = QgsBufferServerResponse()
+    qgs_server.handleRequest(request, response)
+    print(response.headers(), response.body())
+    qgs_app.exitQgis()
+
+Full script:
+https://github.com/qgis/QGIS/blob/master/tests/src/python/qgis_wrapped_server.py

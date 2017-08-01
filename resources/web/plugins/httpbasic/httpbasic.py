@@ -1,7 +1,8 @@
 import os
 
 from qgis.server import *
-
+from qgis.core import QgsMessageLog
+import base64
 
 class HTTPBasicFilter(QgsServerFilter):
 
@@ -11,9 +12,10 @@ class HTTPBasicFilter(QgsServerFilter):
             if params.get('SERVICE').upper() != 'WFS':
                 return
             if self.serverInterface().getEnv('HTTP_AUTHORIZATION'):
-                username, password = base64.b64decode(self.serverInterface().getEnv('HTTP_AUTHORIZATION')[6:]).split(':')
+                username, password = base64.b64decode(self.serverInterface().getEnv('HTTP_AUTHORIZATION')[6:]).split(':')                
                 if (username == os.environ.get('QGIS_SERVER_USERNAME', 'username')
                         and password == os.environ.get('QGIS_SERVER_PASSWORD', 'password')):
+                    QgsMessageLog.logMessage("Wrong username and password: %s %s" % (username, password), "server")
                     return
             # No auth ...
             request.clearHeaders()
