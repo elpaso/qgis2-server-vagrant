@@ -10,7 +10,7 @@ map $http_host $parsed_server_name {
 }
 
 map $http_host $parsed_server_port {
-    default  $host;
+    default  80;
     "~(?P<h>[^:]+):(?P<p>.*+)" $p;
 }
 
