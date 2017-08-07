@@ -19,7 +19,7 @@ class GetFeatureInfoFilter(QgsServerFilter):
                 and params.get('INFO_FORMAT', '').upper() == 'TEXT/HTML' \
                 and not request.exceptionRaised() ):
             body = request.body()
-            body.replace('<BODY>', """<BODY><STYLE type="text/css">* {font-family: arial, sans-serif; color: #09095e;} table { border-collapse:collapse; } td, tr { border: solid 1px grey; }</STYLE>""")
+            body.replace('<HEAD>', """<HEAD><STYLE type="text/css">* {font-family: arial, sans-serif; color: #09095e;} table { border-collapse:collapse; } td, tr { border: solid 1px grey; }</STYLE>""")
             request.clearBody()
             request.appendBody(body)
 
