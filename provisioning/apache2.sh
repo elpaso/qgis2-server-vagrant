@@ -16,7 +16,13 @@ sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" /etc/apache2/sites-available/
 sed -i -e "s@QGIS_SERVER_DIR@${QGIS_SERVER_DIR}@g" $QGIS_SERVER_DIR/htdocs/index.html
 a2enmod rewrite
 a2enmod cgid
-a2dissite 000-default 
+# Clean all existing website configurations just to be sure
+rm -rf /etc/apache2/sites-enabled/*.conf
+# Clean odd configs when deploying on an osgeolive
+rm -f /etc/apache2/conf-enabled/qgis*.conf
+rm -f /etc/apache2/conf-enabled/*wsgi.conf
+rm -f /etc/apache2/conf-enabled/eoxserver.conf
+# Enable the website configuration for QGIS Server
 a2ensite 001-qgis-server
 
 # Listen on port 81 instead of 80 (nginx)
